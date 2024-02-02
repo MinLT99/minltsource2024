@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    background: #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grellary{
+    width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.gre_img{
+    width: 22%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+.gre_img:hover img{
+    transform: scale(1.2);
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.3s;
+}
+
+.modal{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: 0.5s;
+}
+
+.modal_img{
+    width: 70%;
+    height: 70%;
+    margin: auto;
+}
+
+.modal_close{
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.control{
+    position: absolute;
+    font-size: 35px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.control.next{
+    right: 15px;
+}
+
+.control.prev{
+    left: 15px;
+}
+
+.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.hide{
+    display: none;
+}

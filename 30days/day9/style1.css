@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+body.hot{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(img/hot.png) no-repeat center/cover;
+}
+
+body.hot .weather{
+    background: url(img/hot.png) no-repeat center/cover;
+}
+
+body.cold{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(img/cold.png) no-repeat center/cover;
+}
+
+body.cold .weather{
+    background: url(img/cold.png) no-repeat center/cover;
+}
+
+
+.weather{
+    width: 350px;
+    padding: 20px 30px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    text-align: center;
+    height: 600px;
+}
+
+.weather .search{
+    border: none;
+    outline: none;
+    border-radius: 15px 0 15px 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    font-size: 19px;
+    padding: 10px 20px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.weather .search:focus {
+    border-radius:0 15px 0 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.content{
+    color: aliceblue;
+}
+
+.content span{
+    text-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.time{
+    color: aliceblue;
+    margin: 5px 0;
+}
+
+.temperature{
+    display: inline-block;
+    background-color: rgba(255 , 255, 255, 0.3);
+    margin: 20px 0;
+    padding: 20px ;
+    font-size: 60px;
+    font-weight: 800;
+    border-radius: 10px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.short_desc{
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 600;
+    text-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.more_desc{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.more_desc div{
+    display: flex;
+    font-size: 16px;
+    flex-direction: column;
+}
+.more_desc div span{
+    margin-top: 10px;
+}
