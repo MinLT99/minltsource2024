@@ -7,26 +7,63 @@ const scrapeCatelogy = (browser, url) => new Promise (async (resolve, reject) =>
         await page.waitForSelector('#webpage')
         console.log('>> Da load xong')
 
-        const dataCatalogy = await page.$$eval('#navbar-menu > ul > li ', els => {
-            dataCatalogy = els.map(el => {
+        const dataCatagory = await page.$$eval('#navbar-menu > ul > li ', els => {
+            dataCatagory = els.map(el => {
                 return {
                     catelogy: el.querySelector('a').innerText,
                     link: el.querySelector('a').href
                 }
             })
-            return dataCatalogy
+            return dataCatagory
         })
-        console.log(dataCatalogy)
-
         await page.close()
         console.log('>>>Tab đã đóng!')
-        resolve()
+        resolve(dataCatagory)
     } catch (error) {
         console.log('Loi o scrape catelory: ' + error)
         reject(error)
     }
 })
 
+const scraper = (browser, url) => new Promise(async (resolve, reject) => {
+    try {
+        let newPage = await browser.newPage();
+        console.log('da mo tab moi');
+        await newPage.goto(url);
+        console.log('truy cap url: ' + url);
+        await newPage.waitForSelector('#main');
+        console.log('da load xong tab #main');
+        
+        const scrapeData = {};
+
+        //lấy header
+        const headerData = await newPage.$eval('header', (el) => {
+            return {
+                title: el.querySelector('h1').innerText,
+                description: el.querySelector('p').innerText
+            }
+        })
+        scrapeData.header = headerData;
+
+        //lấy link detail
+        const detailLink = await newPage.$$eval('#left-col > section.section-post-listing > ul > li', (els) => {
+            detailLink = els.map( el => {
+                return el.querySelector('.post-meta > h3 > a').href
+            })
+            return detailLink;
+        })
+
+        console.log(detailLink);
+
+        await browser.close();
+        console.log('Trinh duyet da dong');
+        resolve();
+    } catch (error) {
+        reject(error)
+    }
+})
+
 module.exports = {
-    scrapeCatelogy
+    scrapeCatelogy,
+    scraper
 }
