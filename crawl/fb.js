@@ -35,12 +35,12 @@ const password = 'MTuyet21022024@';
 
   await page.goto("https://www.facebook.com", { waitUntil: 'networkidle2' });
 
-      console.log("Nhập tên đăng nhập và mật khẩu");
-      await page.type('form input[type="text"]', username, { delay: 10 });
-      await page.type('form input[type="password"][name="pass"]', password, { delay: 10 });
-      await page.keyboard.press('Enter');
+  console.log("Nhập tên đăng nhập và mật khẩu");
+  await page.type('form input[type="text"]', username, { delay: 10 });
+  await page.type('form input[type="password"][name="pass"]', password, { delay: 10 });
+  await page.keyboard.press('Enter');
 
-      await page.waitForTimeout(5000);
+  await page.waitForTimeout(5000);
 
   for (const link of links) {
     try {
@@ -59,9 +59,7 @@ const password = 'MTuyet21022024@';
         if (elements.length > 0) {
           return elements[0]
         }
-
-        return null
-
+        return null;
       });
 
       if (button) {
@@ -71,50 +69,70 @@ const password = 'MTuyet21022024@';
         console.log("Đợi 1 giây để load các element");
         await page.waitForTimeout(1000);
 
-        const danhsach_user = await page.$$eval('div[role="dialog"][aria-labelledby] span[dir="auto"] a[role="link"]', el_list => {
-          return el_list.map(el => el.textContent);
-        })
+        // let extractedUserData = [];
+        let hasMoreData = true;
+        let old_length = 0;
 
-        console.log("Tên người dùng: ", danhsach_user);
+        for (let pageCounter = 0; hasMoreData; pageCounter++) {
+          // Thực hiện cuộn trang bằng Puppeteer hoặc một cách khác tùy thuộc vào môi trường của bạn
+          let el_list = await page.$$('div[role="dialog"][aria-labelledby] span[dir="auto"] a[role="link"]');
+          
+          if (old_length === el_list.length) {
+            break;
+          }
+
+          old_length = el_list.length
+          el_list[el_list.length-1].scrollIntoView()
+          await page.waitForTimeout(2000)
+        }
+
+        // Trích xuất dữ liệu từ trang hiện tại bằng Puppeteer hoặc cách khác tùy thuộc vào môi trường của bạn
+        let danhsach_user = await page.$$eval('div[role="dialog"][aria-labelledby] span[dir="auto"] a[role="link"]', el_list => {
+          return el_list.map(el => el.textContent);
+        });
+
+        console.log(danhsach_user)
+        // fs.writeFileSync('output.txt', danhsach_user.join('\n'), 'utf-8');
+        // console.log('Dữ liệu đã được ghi vào file output.txt');
 
         // Hàm đọc nội dung từ tập tin và chuyển thành mảng
-        function readUsersFromFile(filePath) {
-          const fileContent = fs.readFileSync(filePath, 'utf8');
-          return fileContent.split('\n').map(name => name.trim());
-        }
+        // function readUsersFromFile(filePath) {
+        //   const fileContent = fs.readFileSync(filePath, 'utf8');
+        //   return fileContent.split('\n').map(name => name.trim());
+        // }
 
         // Hàm so sánh hai mảng
-        function compareArrays(array1, array2) {
-          const commonUsers = array1.filter(user => array2.includes(user));
+        // function compareArrays(array1, array2) {
+        //   const commonUsers = array1.filter(user => array2.includes(user));
 
-          console.log('Danh sách người dùng giống nhau:', commonUsers);
+        //   console.log('Danh sách người dùng giống nhau:', commonUsers);
 
-          const differentUsersOnWeb = array1.filter(user => !array2.includes(user));
-          const differentUsersInFile = array2.filter(user => !array1.includes(user));
+        //   const differentUsersOnWeb = array1.filter(user => !array2.includes(user));
+        //   const differentUsersInFile = array2.filter(user => !array1.includes(user));
 
-          console.log('Danh sách người dùng khác nhau trên trang web:', differentUsersOnWeb);
-          console.log('Danh sách người dùng khác nhau trong tập tin:', differentUsersInFile);
-        }
+        //   console.log('Danh sách người dùng khác nhau trên trang web:', differentUsersOnWeb);
+        //   console.log('Danh sách người dùng khác nhau trong tập tin:', differentUsersInFile);
+        // }
 
         // Thực hiện so sánh
-        async function performComparison() {
-          try {
-            const webResults = danhsach_user;
-            const fileResults = readUsersFromFile('./list_user.txt'); // Thay đổi đường dẫn tới file của bạn
+        // async function performComparison() {
+        //   try {
+        //     const webResults = danhsach_user;
+        //     const fileResults = readUsersFromFile('./list_user.txt'); // Đường dẫn tới file của bạn
 
-            // So sánh hai mảng
-            compareArrays(webResults, fileResults);
-          } catch (error) {
-            console.error('Đã xảy ra lỗi:', error);
-          }
-        }
+        //     // So sánh hai mảng
+        //     compareArrays(webResults, fileResults);
+        //   } catch (error) {
+        //     console.error('Đã xảy ra lỗi:', error);
+        //   }
+        // }
 
         // Chạy hàm so sánh
-        performComparison();
+        // performComparison();
       }
 
-      await page.waitForTimeout(2000);
-      console.log("Đợi 2s để load link khác");
+      await page.waitForTimeout(1000);
+      console.log("Đợi 1s để load link khác");
     } catch (error) {
       console.error(`Lỗi khi xử lý link ${link}:`, error);
     }
