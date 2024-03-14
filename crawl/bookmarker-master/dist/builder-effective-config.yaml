@@ -1,0 +1,15 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.example.bookmarker
+productName: Bookmarker
+files:
+  - filter:
+      - app/**/*
+asar: false
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+electronVersion: 1.8.8

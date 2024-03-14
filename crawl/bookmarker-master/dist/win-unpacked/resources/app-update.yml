@@ -1,0 +1,4 @@
+owner: electron-in-action
+repo: bookmarker
+provider: github
+updaterCacheDirName: bookmarker-updater

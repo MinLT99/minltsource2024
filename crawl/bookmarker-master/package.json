@@ -5,17 +5,18 @@
   "main": "app/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
   },
   "repository": "git@github.com:electron-in-action/bookmarker.git",
   "author": "Steve Kinney <hello@stevekinney.net> (http://stevekinney.net)",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "electron": "^1.8.8",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
+    "electron": "^1.8.8",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
   }

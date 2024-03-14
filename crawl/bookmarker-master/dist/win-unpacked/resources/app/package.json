@@ -1,0 +1,13 @@
+{
+  "name": "bookmarker",
+  "version": "1.0.0",
+  "description": "An example Electron application",
+  "main": "app/main.js",
+  "repository": "git@github.com:electron-in-action/bookmarker.git",
+  "author": "Steve Kinney <hello@stevekinney.net> (http://stevekinney.net)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}
