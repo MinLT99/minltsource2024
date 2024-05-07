@@ -4,28 +4,36 @@ Todo.propTypes = {
 
 };
 
-const todoList = [
-    "Job 1",
-    "Job 2",
-    "Job 3"
-]
-
 function Todo(props) {
+    const localSto = JSON.parse(localStorage.getItem('jobs'))
+
     const [job, setJob] = useState('')
-    const [jobs, setJobs] = useState(todoList)
+    const [jobs, setJobs] = useState(localSto ?? [])
     const [editIndex, setEditIndex] = useState(null)
     const [editText, setEditText] = useState('')
 
     const handleAdd = () => {
-        const newTodoList = [...jobs, job]
-        setJobs(newTodoList)
+        setJobs(pre => {
+            const newTodo = [...pre, job]
+
+            const saveLc = JSON.stringify(newTodo)
+            localStorage.setItem('jobs', saveLc)
+
+            return newTodo
+        })
         setJob('')
     }
 
     const handleDelete = (i) => {
-        const newTodoList1 = [...jobs]
-        newTodoList1.splice(i, 1)
-        setJobs(newTodoList1)
+        setJobs(pre => {
+            const newTodoList1 = [...pre]
+            newTodoList1.splice(i, 1)
+
+            const saveLc = JSON.stringify(newTodoList1)
+            localStorage.setItem('jobs', saveLc)
+
+            return newTodoList1
+        })
         setEditIndex(null)
     }
 
@@ -33,13 +41,14 @@ function Todo(props) {
         setEditIndex(i)
         setEditText(todo)
     }
-    
+
     const handleEdit = (index) => {
         const newList = [...jobs]
         newList[index] = editText
         setJobs(newList)
         setEditIndex(null)
         setEditText('')
+
     }
 
     return (
@@ -54,7 +63,7 @@ function Todo(props) {
                     <li key={i}>
                         {editIndex === i ? (
                             <>
-                                <input type="text" 
+                                <input type="text"
                                     value={editText}
                                     onChange={(e) => setEditText(e.target.value)}
                                 />
@@ -70,6 +79,9 @@ function Todo(props) {
                     </li>
                 ))}
             </ul>
+            <div>
+
+            </div>
         </div>
     );
 }
