@@ -43,8 +43,10 @@ function Todo(props) {
     }
 
     const handleEdit = (index) => {
-        const newList = [...jobs]
+        const editJob = JSON.parse(localStorage.getItem('jobs')) || [];
+        const newList = [...editJob];
         newList[index] = editText
+        localStorage.setItem('jobs', JSON.stringify(newList));
         setJobs(newList)
         setEditIndex(null)
         setEditText('')
