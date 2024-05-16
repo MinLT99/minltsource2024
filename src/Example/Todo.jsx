@@ -13,15 +13,19 @@ function Todo(props) {
     const [editText, setEditText] = useState('')
 
     const handleAdd = () => {
-        setJobs(pre => {
-            const newTodo = [...pre, job]
+        const trimmedJob = job.trim();
+        if (trimmedJob) {
 
-            const saveLc = JSON.stringify(newTodo)
-            localStorage.setItem('jobs', saveLc)
+            setJobs(pre => {
+                const newTodo = [...pre, job]
 
-            return newTodo
-        })
-        setJob('')
+                const saveLc = JSON.stringify(newTodo)
+                localStorage.setItem('jobs', saveLc)
+
+                return newTodo
+            })
+            setJob('')
+        }
     }
 
     const handleDelete = (i) => {
