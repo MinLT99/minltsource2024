@@ -19,7 +19,7 @@ function Todo(props) {
         if (trimmedJob) {
 
             setJobs(pre => {
-                const newTodo = [...pre, job]
+                const newTodo = [...pre, trimmedJob]
 
                 const saveLc = JSON.stringify(newTodo)
                 localStorage.setItem('jobs', saveLc)
