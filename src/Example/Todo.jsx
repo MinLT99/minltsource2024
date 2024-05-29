@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { TinyColor } from '@ctrl/tinycolor';
 import "./../css/todolist.css";
 
-Todo.propTypes = {
-
-};
-
 function Todo(props) {
     const localSto = JSON.parse(localStorage.getItem('jobs'))
 
