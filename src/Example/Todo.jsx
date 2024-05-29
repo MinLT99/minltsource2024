@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { TinyColor } from '@ctrl/tinycolor';
+import "./../css/todolist.css";
 
 Todo.propTypes = {
 
@@ -54,40 +56,45 @@ function Todo(props) {
         setJobs(newList)
         setEditIndex(null)
         setEditText('')
-
     }
+
+    const handClose = () => {
+        setEditIndex(null);
+        setEditText('');
+    };
 
     return (
         <div>
+            <h1>Todo List</h1>
             <input type="text"
+                className='inputText'
                 value={job}
                 onChange={(e) => setJob(e.target.value)}
             />
-            <button onClick={handleAdd}>Add todo</button>
+            <button className='btn-add' onClick={handleAdd}>Add todo</button>
             <ul>
                 {jobs.map((todo, i) => (
                     <li key={i}>
                         {editIndex === i ? (
                             <>
-                                <input type="text"
+                                <input className='inp-edit'
+                                    type="text"
                                     value={editText}
                                     onChange={(e) => setEditText(e.target.value)}
                                 />
-                                <button onClick={() => handleEdit(i)}>Save  </button>
+                                <button className='btn-save' onClick={() => handleEdit(i)}>Save</button>
+                                <button className='btn-close' onClick={() => handClose(i)}>Close</button>
                             </>
                         ) : (
                             <>
-                                <span>{todo}</span>
-                                <button onClick={() => handleIndex(todo, i)}>Edit</button>
+                                <span className='todo-list'>{todo}</span>
+                                <button className='btn-edit' onClick={() => handleIndex(todo, i)}>Edit</button>
+                                <button className='btn-del' onClick={() => handleDelete(i)}>Delete</button>
                             </>
                         )}
-                        <button onClick={() => handleDelete(i)}>X</button>
                     </li>
                 ))}
             </ul>
-            <div>
-
-            </div>
         </div>
     );
 }

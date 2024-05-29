@@ -3,9 +3,17 @@ import Todo from "./Example/Todo.jsx";
 
 function App() {
   return (
-    <>
-      <Todo></Todo>
-    </>
+    <div className="container">
+      <div className="todo">
+        <Todo></Todo>
+      </div>
+      <div className="todo1">
+        s
+      </div>
+      <div className="todo2">
+        a
+      </div>
+    </div>
   );
 }
 
